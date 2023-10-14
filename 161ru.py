@@ -29,14 +29,14 @@ def remove_after_keyword(text, keyword):
      return text
 
 namber_of_news=1
-count_iter = 10
+count_iter = 60
 count_for_pars = 2
 url_p1 = 'https://161.ru/text/?page='
 
 
 visited_links = set()
 
-for i in range(count_iter):
+while True:
     url = url_p1 + str(count_for_pars) 
     print(url) 
     response = requests.get(url)
@@ -151,13 +151,10 @@ for i in range(count_iter):
                             all_paragraphs = "\n".join(p.get_text() for p in news_contents)
                             all_paragraphs = all_paragraphs.split('\n', 1)[1] 
 
-                            sentences = nltk.sent_tokenize(all_paragraphs) 
-                            cleaned_sentences = [s for s in sentences if 'видео' not in s] 
-                            cleaned_sentences1 = [s for s in sentences if 'Фото:' not in s] 
+                            sentences = nltk.sent_tokenize(all_paragraphs)
                             cleaned_sentences2 = [s for s in sentences if 'Поделиться' not in s] 
                             cleaned_sentences3 = [s for s in sentences if 'Иллюстрация:' not in s]  
-                            cleaned_text = ' '.join(cleaned_sentences) 
-                            cleaned_text = ' '.join(cleaned_sentences1)
+                            cleaned_text = ' '.join(cleaned_sentences2) 
                             cleaned_text = clean_text(cleaned_text) 
                             keyword = "По теме"
                             cleaned_text = remove_after_keyword(cleaned_text, keyword)  
